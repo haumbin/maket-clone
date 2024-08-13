@@ -13,7 +13,7 @@ const calcTime = (timestamp) => {
     return `${minute}분 전`; // 경과 시간이 1분 이상 1시간 미만일 경우 "분 전"으로 표시합니다.
   else if (second >= 0)
     return `${second}초 전`; // 경과 시간이 1초 이상 1분 미만일 경우 "초 전"으로 표시합니다.
-  else "방금 전";
+  else return "방금 전";
 };
 
 const renderData = (data) => {

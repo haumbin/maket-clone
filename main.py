@@ -62,7 +62,7 @@ async def get_image(item_id):
                               SELECT image from items WHERE id={item_id}
                               """).fetchone()[0]
     
-    return Response(content=bytes.fromhex(image_bytes)) #16진법으로 된 것을 byte 코드로 해서 content를 reponse 하겠다.
+    return Response(content=bytes.fromhex(image_bytes), media_type='image/*') #16진법으로 된 것을 byte 코드로 해서 content를 reponse 하겠다.
     
 
 
