@@ -25,8 +25,10 @@ const handleSubmit = async (event) => {
     });
     const data = await res.json();
     if (data === "200") {
-      div.innerText = "회원가입에 성공했습니다.";
-      div.style.color = "blue";
+      // div.innerText = "회원가입에 성공했습니다.";
+      // div.style.color = "blue";
+      alert("회원 가입에 성공했습니다."); // 알림창을 생성함
+      window.location.pathname = "/login.html"; // 회원가입 성공시 자동으로 로그인 페이지로 이동
     }
   } else {
     div.innerText = "비밀번호가 같지 않습니다.";
