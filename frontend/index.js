@@ -18,49 +18,60 @@ const calcTime = (timestamp) => {
 
 const renderData = (data) => {
   const main = document.querySelector("main");
-  //.sort()순서를 최신께 맨 위로
-  data
-    .sort((a, b) => b.insertAt - a.insertAt)
-    .forEach(async (obj) => {
-      const div = document.createElement("div");
-      div.className = "item-list";
+  // .sort()순서를 최신께 맨 위로
+  // data.sort((a, b) => b.insertAt - a.insertAt).forEach(async (obj) => {
+  data.reverse().forEach(async (obj) => {
+    const div = document.createElement("div");
+    div.className = "item-list";
 
-      const divImg = document.createElement("div");
-      divImg.className = "item-list__img";
+    const divImg = document.createElement("div");
+    divImg.className = "item-list__img";
 
-      const img = document.createElement("img");
-      const res = await fetch(`/images/${obj.id}`);
-      const blob = await res.blob();
-      const url = URL.createObjectURL(blob);
-      img.src = url;
+    const img = document.createElement("img");
+    const res = await fetch(`/images/${obj.id}`);
+    const blob = await res.blob();
+    const url = URL.createObjectURL(blob);
+    img.src = url;
 
-      const InfoDiv = document.createElement("div");
-      InfoDiv.className = "item-list__info";
+    const InfoDiv = document.createElement("div");
+    InfoDiv.className = "item-list__info";
 
-      const InfoTitleDiv = document.createElement("div");
-      InfoTitleDiv.className = "item-list__info-title";
-      InfoTitleDiv.innerText = obj.title;
+    const InfoTitleDiv = document.createElement("div");
+    InfoTitleDiv.className = "item-list__info-title";
+    InfoTitleDiv.innerText = obj.title;
 
-      const InfoMetaDiv = document.createElement("div");
-      InfoMetaDiv.className = "item-list__info-meta";
-      InfoMetaDiv.innerText = obj.place + " " + calcTime(obj.insertAt);
+    const InfoMetaDiv = document.createElement("div");
+    InfoMetaDiv.className = "item-list__info-meta";
+    InfoMetaDiv.innerText = obj.place + " " + calcTime(obj.insertAt);
 
-      const InfoPriceDiv = document.createElement("div");
-      InfoPriceDiv.className = "item-list__info-price";
-      InfoPriceDiv.innerText = obj.price;
+    const InfoPriceDiv = document.createElement("div");
+    InfoPriceDiv.className = "item-list__info-price";
+    InfoPriceDiv.innerText = obj.price;
 
-      divImg.appendChild(img);
-      InfoDiv.appendChild(InfoTitleDiv);
-      InfoDiv.appendChild(InfoMetaDiv);
-      InfoDiv.appendChild(InfoPriceDiv);
-      div.appendChild(divImg);
-      div.appendChild(InfoDiv);
-      main.appendChild(div); // 하위코드를 선언하고 상위코드를 순차적으로 선언
-    });
+    divImg.appendChild(img);
+    InfoDiv.appendChild(InfoTitleDiv);
+    InfoDiv.appendChild(InfoMetaDiv);
+    InfoDiv.appendChild(InfoPriceDiv);
+    div.appendChild(divImg);
+    div.appendChild(InfoDiv);
+    main.appendChild(div); // 하위코드를 선언하고 상위코드를 순차적으로 선언
+  });
 };
 
 const fetchList = async () => {
-  const res = await fetch("/items");
+  const accessToken = window.localStorage.getItem("token"); //로컬스토리지에 토큰이란 이름으로 저장된 액세스토큰을 가져온다.
+  const res = await fetch("/items", {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+
+  if (res.status === 401) {
+    alert("로그인이 필요합니다!");
+    window.location.pathname = "/login.html";
+    return;
+  }
+
   const data = await res.json();
   renderData(data);
 };
