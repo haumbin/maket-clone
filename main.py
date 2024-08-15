@@ -24,6 +24,8 @@ def query_user(data):
     user = cur.execute(f"""
                        SELECT * FROM users WHERE {WHERE_STATEMENTS};
                        """).fetchone()
+    
+   
     return user
 
 @app.post('/login')
@@ -56,6 +58,7 @@ def signup(id:Annotated[str,Form()],
                 VALUES('{id}','{name}','{email}','{password}')
                 """)
     con.commit()
+    
     return '200'
 
 con = sqlite3.connect('db.db', check_same_thread=False)
@@ -91,6 +94,7 @@ async def create_item(image:UploadFile,
                 """)  #image_bytes hex로 바꿔서 16진법으로 바꿈. 데이터를 짧게 표시하기 위해서
     
     con.commit()
+    
     return '200'
 
 @app.get('/items')
@@ -102,6 +106,7 @@ async def get_items(user=Depends(manager)): # 파라미터로 받아오는 액�
                        SELECT * from items
                        """).fetchall()
 
+    
     return JSONResponse(jsonable_encoder(dict(row)for row in rows))  
     
 #{id:1, title:'식칼팝니다'}
