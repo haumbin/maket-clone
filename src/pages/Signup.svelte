@@ -1,3 +1,7 @@
+<script>
+  import Nav from "../components/Nav.svelte";
+</script>
+
 <form id="signup-form" action="/signup" method="post">
   <div>회원 가입</div>
   <div>
@@ -25,4 +29,4 @@
   </div>
   <div id="info"></div>
 </form>
-<Footer />
+<Nav location="" />

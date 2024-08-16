@@ -1,14 +1,15 @@
 <script>
   import { getDatabase, ref, push } from "firebase/database";
-  // 파이어베이스 데이터베이스에서 데이터베이스를 가져오는 기능 전송하는 기능 
+  // 파이어베이스 데이터베이스에서 데이터베이스를 가져오는 기능 전송하는 기능
   //특정 경로를 가리키는 참조(reference)를 생성하는 기능을 가져온다.
-  import Footer from "../components/Footer.svelte";
+  import Nav from "../components/Nav.svelte";
   import {
     getStorage,
     ref as refImage,
     uploadBytes,
     getDownloadURL,
   } from "firebase/storage";
+
   // getStorage: 파이어 베이스의 저장소의 인스턴스를 가져오는 기능
   //  ref as refImage: 해당 경로를 참조할 수 있게하는 기능인데 데이터베이스와 이름이 겹쳐서 refImage 이름으로 스토리지의 ref를 지칭함
   // uploadBytes: ref에 참조된 경로로 파일을 업로드하는 기능
@@ -23,8 +24,10 @@
   const storage = getStorage(); // 저장소를 가져와서 변수에 담음
   const db = getDatabase(); // 데이터베이스의 정보를 가져와서 db라는 변수에 담는다.
 
-  function writeUserData(imgUrl) { // url정보를 받아와서
-    push(ref(db, "items/"), { //데이터베이스의 items라는 이름의 테이블 경로에 제목 가격 내용 장소 작성시간 이미지를 전송한다.
+  function writeUserData(imgUrl) {
+    // url정보를 받아와서
+    push(ref(db, "items/"), {
+      //데이터베이스의 items라는 이름의 테이블 경로에 제목 가격 내용 장소 작성시간 이미지를 전송한다.
       title: title,
       price: price,
       description: description,
@@ -55,7 +58,8 @@
     return url; // 그 url을 반환한다.
   };
 
-  const handleSubmit = async () => { // 전송 버튼이 눌리면
+  const handleSubmit = async () => {
+    // 전송 버튼이 눌리면
     const url = await uploadFile(); // 이미지파일을 저장소에 먼저 올리고 그 이미지를 다운할  url을 받아온 뒤
     writeUserData(url); // 그 url정보를 가지고 데이터베이스에 저장하는 함수를 동작시킴
   };
@@ -102,7 +106,7 @@
   </div>
 </form>
 
-<Footer location="write" />
+<Nav location="write" />
 
 <style>
   .write-button {

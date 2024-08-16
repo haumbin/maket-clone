@@ -1,6 +1,6 @@
 <script>
   import { onMount } from "svelte";
-  import Footer from "../components/Footer.svelte";
+  import Nav from "../components/Nav.svelte";
   import { getDatabase, ref, onValue } from "firebase/database";
   /*
   onValue는 Firebase Realtime Database에서 특정 경로의 데이터를 지속적으로 모니터링하고,
@@ -9,7 +9,6 @@
 
   let hour = new Date().getHours(); // date 객체에서 현재 시간단위를 가져옴
   let min = new Date().getMinutes(); // date 객체에서 현재 분단위를 가져옴
-  
 
   $: items = []; //  반응형 변수 선언 해당 값이 변경되면 자동으로 화면에서도 변함 렌더링?
 
@@ -36,8 +35,8 @@
 
   onMount(() =>
     //화면이 보여질 때마다 출력이 될 수 있도록한다.
-// svelte에서 js파일은 처음 화면이 뜰 때만 한번만 동작하게 되는데
-// 매번 화면에 접근할 때마다 동작하게 하고 싶다면 onMount를 사용하면된다.
+    // svelte에서 js파일은 처음 화면이 뜰 때만 한번만 동작하게 되는데
+    // 매번 화면에 접근할 때마다 동작하게 하고 싶다면 onMount를 사용하면된다.
 
     onValue(itemsRef, (snapshot) => {
       // onValue는   Realtime Database의  itemsRef 즉 item 경로의 테이블 값 즉 데이터들의 상태가 갱신될 때마다 반복해서 실행되는 함수
@@ -52,7 +51,7 @@
       /*
       data 객체가 { item1: 'value1', item2: 'value2', item3: 'value3' } 같은 형태일 때
        Object.values(data)는 ['value1', 'value2', 'value3']와 같은 배열을 반환합니다**/
-       // 이렇게 해당 경로에 변경이 있을 때 빈 배열 items에 해당 값들을 넣게된다.
+      // 이렇게 해당 경로에 변경이 있을 때 빈 배열 items에 해당 값들을 넣게된다.
 
       console.log("items 배열에 든 값 _+_+_+_+__+_+_>>>>", items);
     })
@@ -84,7 +83,7 @@
 </header>
 <main>
   {#each items as item}
-  <!-- 스벨트에서 사용하는 each문
+    <!-- 스벨트에서 사용하는 each문
    Svelte의 {#each} 문은 JavaScript의 forEach와 HTML 요소를 추가하는 기능이 결합된 구조적인 문법 -->
     <div class="item-list">
       <div class="item-list__img">
@@ -106,7 +105,7 @@
   <!--특정 태그로 이동시켜주는 대표적인 태그-->
 </main>
 
-<Footer location="home" />
+<Nav location="home" />
 
 <div class="media-info-msg">화면 사이즈를 줄여주세요.</div>
 
