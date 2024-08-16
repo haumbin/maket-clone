@@ -3,8 +3,9 @@
   import Footer from "../components/Footer.svelte";
   import { getDatabase, ref, onValue } from "firebase/database";
 
-  let hour = new Date().getHours();
-  let min = new Date().getMinutes();
+  let hour = new Date().getHours(); // date 객체에서 현재 시간단위를 가져옴
+  let min = new Date().getMinutes(); // date 객체에서 현재 분단위를 가져옴
+  
 
   $: items = []; // 해당 값이 변경되면 자동으로 화면에서도 변함 렌더링?
 
