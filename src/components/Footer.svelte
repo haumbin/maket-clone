@@ -1,5 +1,9 @@
 <script>
   export let location;
+  /* export 키워드를 사용하면 변수를 다른 모듈에서 사용할 수 있도록 내보냅니다.
+   즉, 이 모듈을 불러오는 다른 모듈에서 location 변수를 사용할 수 있게 됩니다.
+   즉 다른 모듈에서 해당 페이지의 location 값에 관여할 수 있게된다
+  **/
 
   const moveToHome = () => {
     window.location.hash = "#/";
